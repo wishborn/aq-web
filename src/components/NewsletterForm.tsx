@@ -4,23 +4,15 @@ import { useState } from "react";
 
 export default function NewsletterForm() {
   const [email, setEmail] = useState("");
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [submitted, setSubmitted] = useState(false);
 
-  async function handleSubmit(e: React.FormEvent) {
+  function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setStatus("loading");
-    try {
-      const res = await fetch("/api/newsletter", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
-      });
-      if (!res.ok) throw new Error();
-      setStatus("success");
-      setEmail("");
-    } catch {
-      setStatus("error");
-    }
+    const subject = encodeURIComponent("Newsletter Signup");
+    const body = encodeURIComponent(`Please add me to the Asset Quest newsletter.\n\nEmail: ${email}`);
+    window.location.href = `mailto:info@assetquest.com?subject=${subject}&body=${body}`;
+    setSubmitted(true);
+    setEmail("");
   }
 
   return (
@@ -35,16 +27,12 @@ export default function NewsletterForm() {
       />
       <button
         type="submit"
-        disabled={status === "loading"}
-        className="w-full bg-accent text-white py-2 px-4 rounded font-semibold text-sm hover:bg-accent-hover transition-colors disabled:opacity-50"
+        className="w-full bg-accent text-white py-2 px-4 rounded font-semibold text-sm hover:bg-accent-hover transition-colors"
       >
-        {status === "loading" ? "Signing up..." : "Signup"}
+        Signup
       </button>
-      {status === "success" && (
-        <p className="text-green-700 text-xs mt-2">Thank you for subscribing!</p>
-      )}
-      {status === "error" && (
-        <p className="text-red-600 text-xs mt-2">Something went wrong. Try again.</p>
+      {submitted && (
+        <p className="text-green-700 text-xs mt-2">Thank you for your interest!</p>
       )}
       <p className="text-xs text-navy-light mt-2">
         By signing up, you agree to our{" "}

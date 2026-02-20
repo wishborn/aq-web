@@ -3,14 +3,11 @@
 import { useState } from "react";
 
 export default function ContactForm() {
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [form, setForm] = useState({
     firstName: "",
     lastName: "",
     email: "",
     phone: "",
-    smsOptIn: false,
-    termsAccepted: false,
     subject: "",
     message: "",
   });
@@ -18,39 +15,16 @@ export default function ContactForm() {
   function handleChange(
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) {
-    const target = e.target;
-    const value =
-      target instanceof HTMLInputElement && target.type === "checkbox"
-        ? target.checked
-        : target.value;
-    setForm({ ...form, [target.name]: value });
+    setForm({ ...form, [e.target.name]: e.target.value });
   }
 
-  async function handleSubmit(e: React.FormEvent) {
+  function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!form.termsAccepted) return;
-    setStatus("loading");
-    try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
-      });
-      if (!res.ok) throw new Error();
-      setStatus("success");
-      setForm({
-        firstName: "",
-        lastName: "",
-        email: "",
-        phone: "",
-        smsOptIn: false,
-        termsAccepted: false,
-        subject: "",
-        message: "",
-      });
-    } catch {
-      setStatus("error");
-    }
+    const subject = encodeURIComponent(form.subject || `Contact from ${form.firstName} ${form.lastName}`);
+    const body = encodeURIComponent(
+      `Name: ${form.firstName} ${form.lastName}\nEmail: ${form.email}\nPhone: ${form.phone || "N/A"}\n\n${form.message}`
+    );
+    window.location.href = `mailto:info@assetquest.com?subject=${subject}&body=${body}`;
   }
 
   return (
@@ -116,39 +90,6 @@ export default function ContactForm() {
         </div>
       </div>
 
-      {/* SMS Opt-In */}
-      <div>
-        <h3 className="text-lg font-bold text-navy mb-2">SMS Opt-In</h3>
-        <p className="text-xs text-muted mb-3">
-          By providing a telephone number and submitting this form you are
-          consenting to be contacted by SMS text message. Message &amp; data
-          rates may apply. You can reply STOP to opt-out of further messaging.
-        </p>
-        <label className="flex items-center gap-2 text-sm text-body">
-          <input
-            type="checkbox"
-            name="smsOptIn"
-            checked={form.smsOptIn}
-            onChange={handleChange}
-            className="rounded"
-          />
-          Ok to Receive SMS Communication
-        </label>
-      </div>
-
-      {/* Terms */}
-      <label className="flex items-center gap-2 text-sm text-body">
-        <input
-          type="checkbox"
-          name="termsAccepted"
-          checked={form.termsAccepted}
-          onChange={handleChange}
-          required
-          className="rounded"
-        />
-        You accept our Terms of Service (link in footer)
-      </label>
-
       {/* Subject */}
       <div>
         <label className="block text-sm font-semibold text-accent mb-1">
@@ -182,22 +123,10 @@ export default function ContactForm() {
 
       <button
         type="submit"
-        disabled={status === "loading"}
-        className="w-full bg-accent text-white py-3 px-6 rounded font-bold text-sm uppercase tracking-wider hover:bg-accent-hover transition-colors disabled:opacity-50"
+        className="w-full bg-accent text-white py-3 px-6 rounded font-bold text-sm uppercase tracking-wider hover:bg-accent-hover transition-colors"
       >
-        {status === "loading" ? "Sending..." : "Send"}
+        Send
       </button>
-
-      {status === "success" && (
-        <p className="text-green-700 font-semibold">
-          Thank you! Your message has been sent.
-        </p>
-      )}
-      {status === "error" && (
-        <p className="text-red-600 font-semibold">
-          Something went wrong. Please try again.
-        </p>
-      )}
     </form>
   );
 }

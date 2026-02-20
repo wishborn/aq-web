@@ -3,7 +3,6 @@
 import { useState } from "react";
 
 export default function QuickContactForm() {
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [form, setForm] = useState({
     firstName: "",
     lastName: "",
@@ -16,21 +15,13 @@ export default function QuickContactForm() {
     setForm({ ...form, [e.target.name]: e.target.value });
   }
 
-  async function handleSubmit(e: React.FormEvent) {
+  function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setStatus("loading");
-    try {
-      const res = await fetch("/api/quick-contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
-      });
-      if (!res.ok) throw new Error();
-      setStatus("success");
-      setForm({ firstName: "", lastName: "", company: "", email: "", country: "" });
-    } catch {
-      setStatus("error");
-    }
+    const subject = encodeURIComponent(`Quick contact from ${form.firstName} ${form.lastName}`);
+    const body = encodeURIComponent(
+      `Name: ${form.firstName} ${form.lastName}\nCompany: ${form.company || "N/A"}\nEmail: ${form.email}\nCountry: ${form.country || "N/A"}`
+    );
+    window.location.href = `mailto:info@assetquest.com?subject=${subject}&body=${body}`;
   }
 
   const fields = [
@@ -57,17 +48,10 @@ export default function QuickContactForm() {
       ))}
       <button
         type="submit"
-        disabled={status === "loading"}
-        className="w-full bg-accent text-white py-2 px-4 rounded font-semibold text-sm hover:bg-accent-hover transition-colors disabled:opacity-50"
+        className="w-full bg-accent text-white py-2 px-4 rounded font-semibold text-sm hover:bg-accent-hover transition-colors"
       >
-        {status === "loading" ? "Submitting..." : "Submit"}
+        Submit
       </button>
-      {status === "success" && (
-        <p className="text-green-700 text-xs">Thank you! We&apos;ll be in touch.</p>
-      )}
-      {status === "error" && (
-        <p className="text-red-600 text-xs">Something went wrong. Try again.</p>
-      )}
     </form>
   );
 }

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" fill="none">
+  <g opacity="0.3" stroke="#ffffff" stroke-width="0.5">
+    <!-- Simplified world map outlines -->
+    <!-- North America -->
+    <path d="M150,120 L200,100 L250,90 L300,95 L320,110 L340,130 L350,160 L340,200 L320,230 L300,250 L280,260 L250,270 L230,290 L220,310 L200,320 L180,310 L160,280 L140,250 L130,220 L120,190 L130,160 L140,140 Z" fill="#ffffff" fill-opacity="0.1"/>
+    <!-- South America -->
+    <path d="M230,330 L260,320 L290,330 L310,360 L320,400 L310,440 L290,470 L270,490 L250,500 L240,480 L230,450 L220,420 L210,390 L220,360 Z" fill="#ffffff" fill-opacity="0.1"/>
+    <!-- Europe -->
+    <path d="M480,100 L520,90 L560,95 L580,110 L590,130 L580,150 L560,160 L540,155 L520,160 L500,150 L490,130 L480,120 Z" fill="#ffffff" fill-opacity="0.1"/>
+    <!-- Africa -->
+    <path d="M500,180 L540,170 L570,180 L590,200 L600,240 L610,280 L600,320 L580,350 L560,370 L530,380 L510,370 L490,340 L480,300 L470,260 L480,220 L490,200 Z" fill="#ffffff" fill-opacity="0.1"/>
+    <!-- Asia -->
+    <path d="M600,80 L660,70 L720,60 L780,70 L840,80 L880,100 L900,130 L910,160 L900,190 L880,210 L840,220 L800,230 L760,220 L720,200 L680,180 L640,160 L620,140 L610,120 L600,100 Z" fill="#ffffff" fill-opacity="0.1"/>
+    <!-- Australia -->
+    <path d="M850,340 L890,330 L930,340 L950,360 L940,390 L920,410 L890,420 L860,410 L840,390 L840,370 Z" fill="#ffffff" fill-opacity="0.1"/>
+    <!-- Grid lines -->
+    <line x1="0" y1="150" x2="1200" y2="150" opacity="0.15"/>
+    <line x1="0" y1="300" x2="1200" y2="300" opacity="0.15"/>
+    <line x1="0" y1="450" x2="1200" y2="450" opacity="0.15"/>
+    <line x1="300" y1="0" x2="300" y2="600" opacity="0.15"/>
+    <line x1="600" y1="0" x2="600" y2="600" opacity="0.15"/>
+    <line x1="900" y1="0" x2="900" y2="600" opacity="0.15"/>
+  </g>
+</svg>

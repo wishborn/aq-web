@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-navy: #172132;
+  --color-navy-light: #293b5f;
+  --color-accent: #024570;
+  --color-accent-hover: #035d96;
+  --color-gray-light: #dcdde2;
+  --color-gray-medium: #b8bcc9;
+  --color-body: #212529;
+  --color-muted: #4d5879;
+  --color-white: #ffffff;
+  --font-sans: var(--font-inter);
+}
+
+body {
+  background: var(--color-white);
+  color: var(--color-body);
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+/* Diamond shape for hero cards */
+.diamond {
+  transform: rotate(45deg);
+}
+
+.diamond-content {
+  transform: rotate(-45deg);
+}

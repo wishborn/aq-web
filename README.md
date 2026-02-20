@@ -1,36 +1,70 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Asset Quest Website
+
+Corporate website for **Asset Quest, LLC** — a leading real estate investment firm based in Fort Myers, FL specializing in acquisition, management, marketing, and sales of residential lots, commercial properties, and multi-family homes.
+
+## Tech Stack
+
+- **Next.js 16** (App Router)
+- **TypeScript**
+- **Tailwind CSS 4**
+- **Resend** for transactional email
+- **Lucide React** for icons
+
+## Pages
+
+- `/` — Home (hero, company overview, experience highlights)
+- `/our-focus` — Investment verticals (SFR/BTR, Capital Deployment, Acquisitions Management, Tax Collector Debt Service)
+- `/contact` — Contact form with SMS opt-in, office info, Google Maps embed
+- `/privacy-policy` — Privacy policy (placeholder)
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Environment Variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Create a `.env.local` file:
 
-## Learn More
+```
+RESEND_API_KEY=re_your_api_key_here
+```
 
-To learn more about Next.js, take a look at the following resources:
+The Resend API key is required for the contact, newsletter, and quick contact forms to send emails.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Project Structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+src/
+  app/
+    page.tsx              # Home page
+    layout.tsx            # Root layout (header + footer)
+    globals.css           # Tailwind config + custom theme
+    contact/page.tsx      # Contact page
+    our-focus/page.tsx    # Our Focus page
+    privacy-policy/page.tsx
+    api/
+      contact/route.ts    # Contact form API
+      newsletter/route.ts # Newsletter signup API
+      quick-contact/route.ts
+  components/
+    Header.tsx            # Site navigation
+    Footer.tsx            # Footer with forms
+    HeroDiamonds.tsx      # Diamond-shaped info cards
+    ExperienceGrid.tsx    # Experience section icons
+    ContactForm.tsx       # Contact page form
+    NewsletterForm.tsx    # Newsletter signup
+    QuickContactForm.tsx  # Footer quick contact
+public/
+  images/
+    logo.png              # Asset Quest logo
+    world-map.svg         # Hero background
+```
 
-## Deploy on Vercel
+## Deployment
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Deploy to Vercel, Netlify, or any Node.js host. Set the `RESEND_API_KEY` environment variable in your hosting provider's dashboard.

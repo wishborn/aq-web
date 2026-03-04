@@ -26,7 +26,9 @@ export default function Footer() {
                 239-541-8448
               </a>
             </p>
-            <p className="text-navy-light text-sm">
+            {/* suppressHydrationWarning: browser privacy extensions may rewrite
+                email addresses on the client, causing a server/client mismatch. */}
+            <p className="text-navy-light text-sm" suppressHydrationWarning>
               <strong>Email:</strong> info@assetquest.com
             </p>
           </div>
